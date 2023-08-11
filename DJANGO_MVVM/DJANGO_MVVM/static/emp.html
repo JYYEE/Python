@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.6.4.js"></script>
+<script type="text/javascript">
+function fn_ajax(){
+	
+	var param = {
+			menu : '짬뽕'
+		}
+	console.log("fn_ajax");
+	$.ajax({
+			type : "post",
+			url : "/ajax",
+			data : JSON.stringify(param),
+			//data : {"menu" : "짬뽕"},
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			/* 	        error : function() {
+			 console.log('통신실패!!');
+			 },
+			 */
+			 success : function(res) {
+				console.log(res);
+			}
+	});
+}
+
+function fn_list(){
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_list",
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			console.log(res)
+			var obj_tbody = document.querySelector("#my_tbody");
+			var list = res.list;
+			var text = "";
+			for(var i=0; i<list.length; i++){
+				var e = list[i];
+				var e_id = e.e_id;
+				var e_name = e.e_name;
+				var sex = e.sex;
+				var addr = e.addr;
+				
+				text +=`
+				<tr>
+					<td><a href="javascript:fn_detail('${e_id}')">${e_id}</a></td>
+					<td>${e_name}</td>
+					<td>${sex}</td>
+					<td>${addr}</td>
+				</tr>
+				`;
+			}
+			obj_tbody.innerHTML = text;
+			// 나 -> 미완
+			/* console.log(res)
+			code="<tr>";
+			$.each(res, function(i, v){
+				console.log(i)
+				console.log(v)
+				console.log(v.e_id)
+				console.log(v.e_name)
+				console.log(v.e_sex)
+				console.log(v.e_addr)
+				if(v == null){
+					return;
+				} else {
+					$('#my_tbody').empty();
+					code +="<td>" +v.e_id +"</td>"
+					code +="<td>" +v.e_name +"</td>"
+					code +="<td>" +v.sex +"</td>"
+					code +="<td>" +v.addr +"</td>"
+				}
+			})
+			code+="</tr>"
+			$('#my_tbody').html(code)	*/		
+		} 
+	});
+}
+
+function fn_detail(e_id){
+	var param = {
+			'e_id' : e_id
+		}
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_detail",
+		data : JSON.stringify(param),
+		//data : JSON.stringify(e_id), -> e_id가 json 형식이 아니라서 틀린 표현
+		//data : {"e_id" : e_id}, -> json형식으로 key, value로 전달
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			var e_id = res.vo.e_id
+			var e_name = res.vo.e_name;
+			var sex = res.vo.sex;
+			var addr = res.vo.addr;
+			$('#e_id').val(e_id)
+			$('#e_name').val(e_name)
+			$('#sex').val(sex)
+			$('#addr').val(addr)
+		}
+	});
+}
+
+function fn_mod(){
+	// 자바 스크립트
+	var obj_e_id = document.querySelector('#e_id');
+	var obj_e_name = document.querySelector('#e_name');
+	var obj_sex = document.querySelector('#sex');
+	var obj_addr = document.querySelector('#addr');
+	
+	var param = {
+			'e_id' : obj_e_id.value,
+			"e_name" : obj_e_name.value,
+			 sex : obj_sex.value,
+			 addr  : obj_addr.value
+	}
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_update",
+		data : JSON.stringify(param),
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			var cnt = res.cnt
+			if(cnt == 1){
+				alert("정상적으로 수정되었습니다.")
+				obj_e_id.value = "";
+				obj_e_name.value = "";
+				obj_sex.value = "";
+				obj_addr.value = "";
+				fn_list()
+			} else {
+				alert("수정에 실패하였습니다. 다시 시도해주세요.")
+				obj_e_id.value = "";
+				obj_e_name.value = "";
+				obj_sex.value = "";
+				obj_addr.value = "";
+				fn_list()
+			}
+		}
+	});
+	
+	// jquery
+	/* var param = {
+			'e_id' : $('#e_id').val(),
+			'e_name' : $('#e_name').val(),
+			'sex' : $('#sex').val(),
+			'addr' : $('#addr').val()
+	}
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_update",
+		data : JSON.stringify(param),
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			if(res.cnt == 1){
+				alert("정상적으로 수정되었습니다.")
+				$('#e_id').val("")
+				$('#e_name').val("")
+				$('#sex').val("")
+				$('#addr').val("")
+				fn_list()
+			} else {
+				alert("수정에 실패하였습니다. 다시 시도해주세요.")
+				$('#e_id').val("")
+				$('#e_name').val("")
+				$('#sex').val("")
+				$('#addr').val("")
+				fn_list()
+			}
+		}
+	}); */
+}
+
+function fn_add(){
+	var obj_e_id = document.querySelector('#e_id');
+	var obj_e_name = document.querySelector('#e_name');
+	var obj_sex = document.querySelector('#sex');
+	var obj_addr = document.querySelector('#addr');
+	
+	var param = {
+			'e_id' : obj_e_id.value,
+			'e_name' : obj_e_name.value,
+			'sex' : obj_sex.value,
+			'addr'  : obj_addr.value
+	}
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_add",
+		data : JSON.stringify(param),
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			var cnt = res.cnt
+			if(cnt == 1){
+				alert("정상적으로 등록되었습니다.")
+				obj_e_id.value = "";
+				obj_e_name.value = "";
+				obj_sex.value = "";
+				obj_addr.value = "";
+				fn_list()
+			} else {
+				alert("등록에 실패하였습니다. 다시 시도해주세요.")
+				obj_e_id.value = "";
+				obj_e_name.value = "";
+				obj_sex.value = "";
+				obj_addr.value = "";
+				fn_list()
+			}
+		}
+	});
+}
+
+function fn_del(){
+	var obj_e_id = document.querySelector('#e_id');
+	var obj_e_name = document.querySelector('#e_name');
+	var obj_sex = document.querySelector('#sex');
+	var obj_addr = document.querySelector('#addr');
+	var param = {
+			'e_id' : obj_e_id.value
+		}
+	$.ajax({
+		type : "post",
+		url : "/ajax_emp_del",
+		data : JSON.stringify(param),
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		success : function(res) {
+			console.log(res)
+			var cnt = res.cnt
+			if(cnt == 1){
+				alert("정상적으로 삭제되었습니다.")
+				location.reload();
+			} else {
+				alert("삭제에 실패하였습니다. 다시 시도해주세요.")
+				obj_e_id.value = "";
+				obj_e_name.value = "";
+				obj_sex.value = "";
+				obj_addr.value = "";
+				fn_list()
+			}
+		}
+	});
+}
+</script>
+</head>
+<body onload="fn_list()">
+<a href="javascript:fn_ajax()">ajax</a>
+<table border="1">
+	<thead>
+		<tr>
+			<td>사번</td>
+			<td>이름</td>
+			<td>성별</td>
+			<td>주소</td>
+		</tr>
+	</thead>
+	<tbody id="my_tbody">
+		<tr>
+			<td colspan="4">검색된 데이터가 없습니다.</td>
+		</tr>
+	
+	</tbody>
+</table>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td><input type="text" id="e_id"></td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td><input type="text" id="e_name"></td>
+	</tr>
+	<tr>
+		<td>성별</td>
+		<td><input type="text" id="sex"></td>
+	</tr>
+	<tr>
+		<td>주소</td>
+		<td><input type="text" id="addr"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="추가" onclick="fn_add()">
+			<input type="button" value="수정" onclick="fn_mod()">
+			<input type="button" value="삭제" onclick="fn_del()">
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>
