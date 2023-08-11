@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function fn_mod_act(){
+	document.frm.submit();
+}
+</script>
+</head>
+<body>
+<h3>MEM_MODIFY</h3>
+<hr/>
+<form action="mem_mod_act" name="frm" method="post">
+<table border="1" style="border-collapse: collapse;">
+	<tr>
+		<th>아이디</th>
+		<td><input type="text" name="m_id" value="{{vo.m_id}}" disabled></td>
+	</tr>
+	<tr>
+		<th>이름</th>
+		<td><input type="text" name="m_name" value="{{vo.m_name}}"></td>
+	</tr>
+	<tr>
+		<th>전화</th>
+		<td><input type="text" name="tel" value="{{vo.tel}}"></td>
+	</tr>
+	<tr>
+		<th>주소</th>
+		<td><input type="text" name="address" value="{{vo.address}}"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="실행" onclick="fn_mod_act()">
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>
