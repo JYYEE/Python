@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+//var cnt = {{cnt}};  // 이클립스 내부 표현식에 맞지 않을 뿐 오류는 아님
+// 빨간줄 없애기 위해서는 문자열로 취급
+ var cnt = "{{cnt}}";
+if(cnt == "1"){
+	alert("정상적으로 수정되었습니다.");
+	location.href="emp_list";
+} else {
+	// location.href="emp_mod"; // emp_mod는 e_id가 필요한데 파라미터로 보내지 않아서 오류 발생
+	history.back(); // 이전 페이지로 이동. 
+	// history.go(); // 이후 페이지로 이동. -> ()숫자만큼 이동가능. -1넣으면 history.back()와 같음.
+}
+</script>
+</head>
+<body>
+<h3>EMP_MOD_ACT</h3>
+<hr/>
+</body>
+</html>
