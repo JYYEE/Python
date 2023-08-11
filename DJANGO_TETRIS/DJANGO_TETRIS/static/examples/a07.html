@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - geometry - cube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+	</head>
+	<body>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "../build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+			
+			let xzcs=[
+				{'x':-100,	'z':100,	'c':0xff0000},
+				{'x':0,		'z':100,	'c':0xff6a00},
+				{'x':100,	'z':100,	'c':0xfcfc00},
+				
+				{'x':-100,	'z':0,		'c':0x21ff00},
+				{'x':0,		'z':0,		'c':0x00ffdd},
+				{'x':100,	'z':0,		'c':0x0025fc},
+				
+				{'x':-100,	'z':-100,	'c':0xe900ff},
+				{'x':0,		'z':-100,	'c':0xffffff},
+				{'x':100,	'z':-100,	'c':0x828282}
+			]
+			
+			let ufos = [];
+			let cylinder;
+			let camera, scene, renderer;
+			//let cylinder1, cylinder2, cylinder3, cylinder4, cylinder5, cylinder6, cylinder7, cylinder8, cylinder9;
+			
+			init();
+			animate();
+
+			function init() {
+				
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+//				camera.position.z = 800;
+//				camera.position.y = 200;
+				camera.position.z = 400;
+				camera.position.y = 100;
+				scene = new THREE.Scene();
+				
+				for(var i=0; i<xzcs.length;i++){
+					var geometry = new THREE.CylinderGeometry( 15, 40, 10, 20 ); // 면 반지름, 윗면 반지름, 높이, 곡률
+					var material = new THREE.MeshBasicMaterial( {color: xzcs[i].c, wireframe : true} ); 
+					cylinder = new THREE.Mesh( geometry, material ); 
+					cylinder.position.x = xzcs[i].x;
+					cylinder.position.z = xzcs[i].z;
+					scene.add( cylinder );
+					ufos.push(cylinder);
+				}
+				
+//				const geometry1 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 면 반지름, 윗면 반지름, 높이, 곡률
+//				const material1 = new THREE.MeshBasicMaterial( {color: 0x7B68EE, wireframe : true} ); 
+//				cylinder1 = new THREE.Mesh( geometry1, material1 ); 
+//				cylinder1.position.x = -200;
+//				cylinder1.position.z = -200;
+//				scene.add( cylinder1 );
+//				
+//				const geometry2 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material2 = new THREE.MeshBasicMaterial( {color: 0xFFFFFF, wireframe : true} ); 
+//				cylinder2 = new THREE.Mesh( geometry2, material2 ); 
+//				cylinder2.position.x = 0;
+//				cylinder2.position.z = -200;
+//				scene.add( cylinder2 );
+//				
+//				const geometry3 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material3 = new THREE.MeshBasicMaterial( {color: 0x828282, wireframe : true} ); 
+//				cylinder3 = new THREE.Mesh( geometry3, material3 ); 
+//				cylinder3.position.x = 200;
+//				cylinder3.position.z = -200;
+//				scene.add( cylinder3 );
+//				
+//				const geometry4 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material4 = new THREE.MeshBasicMaterial( {color: 0x54BD54, wireframe : true} ); 
+//				cylinder4 = new THREE.Mesh( geometry4, material4 ); 
+//				cylinder4.position.x = -200;
+//				cylinder4.position.z = 0;
+//				scene.add( cylinder4 );
+//				
+//				const geometry5 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material5 = new THREE.MeshBasicMaterial( {color: 0x0078FF, wireframe : true} ); 
+//				cylinder5 = new THREE.Mesh( geometry5, material5 ); 
+//				cylinder5.position.x = 0;
+//				cylinder5.position.z = 0;
+//				scene.add( cylinder5 );
+//				
+//				const geometry6 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material6 = new THREE.MeshBasicMaterial( {color: 0x0000CD, wireframe : true} ); 
+//				cylinder6 = new THREE.Mesh( geometry6, material6 ); 
+//				cylinder6.position.x = 200;
+//				cylinder6.position.z = 0;
+//				scene.add( cylinder6 );
+//				
+//				const geometry7 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material7 = new THREE.MeshBasicMaterial( {color: 0xFF0000, wireframe : true} ); 
+//				cylinder7 = new THREE.Mesh( geometry7, material7 ); 
+//				cylinder7.position.x = -200;
+//				cylinder7.position.z = 200;
+//				scene.add( cylinder7 );
+//				
+//				const geometry8 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material8 = new THREE.MeshBasicMaterial( {color: 0xFF8200, wireframe : true} ); 
+//				cylinder8 = new THREE.Mesh( geometry8, material8 ); 
+//				cylinder8.position.x = 0;
+//				cylinder8.position.z = 200;
+//				scene.add( cylinder8 );
+//				
+//				const geometry9 = new THREE.CylinderGeometry( 30, 80, 50, 20 ); // 밑면 반지름, 윗면 반지름, 높이, 곡률
+//				const material9 = new THREE.MeshBasicMaterial( {color: 0xFFE650, wireframe : true} ); 
+//				cylinder9 = new THREE.Mesh( geometry9, material9 ); 
+//				cylinder9.position.x = 200;
+//				cylinder9.position.z = 200;
+//				scene.add( cylinder9 );
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize );
+
+			}
+
+			function onWindowResize() { // 화면 사이즈 바꿀 때 호출되는 함수
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+			var cnt = 0;
+			function animate() { // 
+				console.log("animate")
+				requestAnimationFrame( animate );
+				console.log("cnt", cnt)
+				cnt++;
+				if(cnt > 100){
+					ufos[0].rotation.y +=0.05;
+					ufos[0].position.y +=1;
+				} 
+				if(cnt > 200){
+					ufos[1].rotation.y +=0.05;
+					ufos[1].position.y +=1;
+				} 
+				if(cnt > 300){
+					ufos[2].rotation.y +=0.05;
+					ufos[2].position.y +=1;
+				} 
+				if(cnt > 400){
+					ufos[3].rotation.y +=0.05;
+					ufos[3].position.y +=1;
+				} 
+				if(cnt > 500){
+					ufos[4].rotation.y +=0.05;
+					ufos[4].position.y +=1;
+				} 
+				if(cnt > 600){
+					ufos[5].rotation.y +=0.05;
+					ufos[5].position.y +=1;
+				} 
+				if(cnt > 700){
+					ufos[6].rotation.y +=0.05;
+					ufos[6].position.y +=1;
+				} 
+				if(cnt > 800){
+					ufos[7].rotation.y +=0.05;
+					ufos[7].position.y +=1;
+				} 
+				if(cnt > 900){
+					ufos[8].rotation.y +=0.05;
+					ufos[8].position.y +=1;
+				} 
+				
+				camera.lookAt(ufos[4].position) // 화면이 ufos[4].position를 따라감
+				renderer.render( scene, camera ); // 그림 그릴 때 scene, camera 필요
+			}
+		</script>
+
+	</body>
+</html>
