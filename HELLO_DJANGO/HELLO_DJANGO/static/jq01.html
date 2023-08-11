@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.6.4.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+// => $(function(){}) 랑 같은 표현
+	$('#btn').on('click', function(){
+		$('.my_div').text("Good Evening")
+	})
+	// => $('#btn').bind('click', myclick); 와 같음
+})
+//function my_click(){
+	//document.getElementsByClassName('my_div')[0].innerText = "Good Evening";
+	//var objs = document.getElementsByClassName('my_div');
+	//objs[0].innerText = "Good Evening";
+//}
+</script>
+</head>
+<body>
+<div class="my_div"> 
+Good Morning	
+</div>
+<input type="button" id="btn" value="CLICK">
+</body>
+</html>

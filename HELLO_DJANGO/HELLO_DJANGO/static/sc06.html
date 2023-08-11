@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it_dan{
+	width : 30px;
+}
+#my_div{
+	border : 1px solid black;
+	width : 100px;
+	height : 200px;
+}
+
+</style>
+<script type="text/javascript">
+function my_click(){
+	let dan = document.getElementById('it_dan').value;
+	//let obj_dan = document.getElementById('it_dan').value;
+	// obj를 $로 쓰기도 함. -> $dan 이런 식으로 작성
+	let str ="";
+	for(i=1;i<10;i++){
+		str += dan + " * " + i +" = " + (i*dan) + "<br>" ; // innerText로는 <br>도 문자로 인식 -> innerHTML
+		//str += dan + " * " + i +" = " + (i*dan) + "\n" ; // innerText로 하려면 "\n" 이용
+	}
+	document.getElementById('my_div').innerHTML = str;
+	//document.getElementById('my_div').innerText = str;
+}
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>입력 단수 : </td>
+		<td><input type="text" id="it_dan"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" onclick="my_click()">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="my_div"></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

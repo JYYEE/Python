@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it_first, #it_last{
+	width : 20px;
+}
+</style>
+<script type="text/javascript">
+
+function my_click(){
+	let first = document.getElementById("it_first").value;
+	let last = document.getElementById("it_last").value;
+	str ="";
+	for(i = first; i<=last; i++){
+		for(j=1; j<=i; j++){
+			str +="*";
+		}
+		str +="\n"
+	}
+	document.getElementById('ta').value = str;
+}  
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>첫 별 수</td>
+		<td><input type="text" id="it_first"></td>
+	</tr>
+	<tr>
+		<td>끝 별 수</td>
+		<td><input type="text" id="it_last"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" onclick="my_click()">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<textarea rows="20" cols="20" id="ta"></textarea>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function my_click(){
+	arr = [];
+	for(i = 0; i<45 ; i++){
+		arr[i]=i+1;
+		//arr.push(i);
+	}
+	/* for(i = 1; i<=45 ; i++){
+		arr.push(i);
+	} */
+	
+	/* for(i=0; i<100; i++){
+		let rnd = parseInt(Math.random()*45);
+		a= arr[0]
+		b= arr[rnd]
+		arr[0]=b
+		arr[rnd]=a
+	} */
+	// 배열 셔플하는 함수
+	function shuffle(array){
+		array.sort(()=>Math.random()-0.5)
+	}
+	shuffle(arr);
+	console.log(arr)
+	
+	for(i=0;i<6;i++){
+		console.log(arr[i])
+		document.querySelectorAll('.my_td')[i].innerText = arr[i];
+	}
+}
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+	</tr>
+	<tr>
+		<td colspan="6">
+			<input type="button" value="로또생성하기" onclick="my_click()">
+		</td>
+	</tr>
+</table>
+</body>
+</html>

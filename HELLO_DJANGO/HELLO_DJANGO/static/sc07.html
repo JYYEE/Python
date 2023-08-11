@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it {
+	text-align: right;
+}
+
+</style>
+<script type="text/javascript">
+str = ""
+function my_num(e){
+	//console.log(e)
+	//console.log(e.target)
+	console.log(e.target.value)
+	var obj_it = document.querySelector('#it');
+	var str_new = e.target.value;
+	var str_old = obj_it.value;
+	obj_it.value = str_old + str_new;
+	console.log(str_new, str_old);
+}
+/* function my_num(button){
+	str += button.value;
+	document.getElementById('it').value = str;
+	//console.log(str)
+} */
+function my_click(){
+	alert("Calling\n" + str);
+	
+}  
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td colspan="3"><input type="text" id="it"></td>
+	</tr>
+	<!-- <tr>
+		<td><input type="button" value="1" onclick="my_num(this)"></td>
+		<td><input type="button" value="2" onclick="my_num(this)"></td>
+		<td><input type="button" value="3" onclick="my_num(this)"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="4" onclick="my_num(this)"></td>
+		<td><input type="button" value="5" onclick="my_num(this)"></td>
+		<td><input type="button" value="6" onclick="my_num(this)"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="7" onclick="my_num(this)"></td>
+		<td><input type="button" value="8" onclick="my_num(this)"></td>
+		<td><input type="button" value="9" onclick="my_num(this)"></td>
+	</tr> -->
+	<tr>
+		<td><input type="button" value="1" onclick="my_num(event)"></td>
+		<td><input type="button" value="2" onclick="my_num(event)"></td>
+		<td><input type="button" value="3" onclick="my_num(event)"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="4" onclick="my_num(event)"></td>
+		<td><input type="button" value="5" onclick="my_num(event)"></td>
+		<td><input type="button" value="6" onclick="my_num(event)"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="7" onclick="my_num(event)"></td>
+		<td><input type="button" value="8" onclick="my_num(event)"></td>
+		<td><input type="button" value="9" onclick="my_num(event)"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="0" onclick="my_num(event)"></td>
+		<td colspan="2"><input type="button" value="CALL" onclick="my_click()"></td>
+	</tr>
+</table>
+</body>
+</html>

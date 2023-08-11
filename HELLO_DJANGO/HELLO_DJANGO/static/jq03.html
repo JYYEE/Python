@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.6.4.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btn').bind('click', myclick);
+	$('input[name=it_mine]').bind('keypress', function(event){
+		if(event.key == "Enter"){
+			myclick();
+		}
+	})
+	
+})
+	
+function myclick(){
+	mine = $('input[name=it_mine]').val()
+	arr=["가위", "바위", "보"];
+	index = parseInt(arr.length*Math.random())
+	com = arr[index];
+	$('input[name=it_com]').val(com);
+	result = "";
+	if("가위" == com && "가위"  == mine){result="비겼다"; }
+	if("바위" == com && "바위" == mine){result="비겼다"; }
+	if("보"  == com && "보" == mine){result="비겼다"; }
+	if("가위" == com && "바위" == mine){result="이겼다"; }
+	if("바위" == com && "보"  == mine){result="이겼다"; }
+	if("보"  == com && "가위" == mine){result="이겼다"; }
+	if("가위"  == com && "보" == mine){result="졌다"; }
+	if("바위"  == com && "가위" == mine){result="졌다"; }
+	if("보" == com && "바위" == mine){result="졌다"; }
+	$('input[name=it_result]').val(result);
+}	
+	
+// 나	
+/* $(function(){
+	$('input[name=it_mine]').keydown(function(key) { // enter 이벤트
+		if( key.keyCode == 13 ){ // enter 키 코드 = 13
+			$("#btn").trigger("click");
+			return false;
+		}
+	});
+	$('#btn').bind('click', function(){
+		mine = $('input[name=it_mine]').val()
+		arr=["가위", "바위", "보"];
+		index = parseInt(arr.length*Math.random())
+		com = arr[index];
+		$('input[name=it_com]').val(com);
+		result = "";
+		if("가위" == com && "가위"  == mine){result="비겼다"; }
+		if("바위" == com && "바위" == mine){result="비겼다"; }
+		if("보"  == com && "보" == mine){result="비겼다"; }
+		if("가위" == com && "바위" == mine){result="이겼다"; }
+		if("바위" == com && "보"  == mine){result="이겼다"; }
+		if("보"  == com && "가위" == mine){result="이겼다"; }
+		if("가위"  == com && "보" == mine){result="졌다"; }
+		if("바위"  == com && "가위" == mine){result="졌다"; }
+		if("보" == com && "바위" == mine){result="졌다"; }
+		$('input[name=it_result]').val(result);
+	})
+}) */
+</script>
+</head>
+<body>
+<table>
+	<tr>
+		<td>나 : </td>
+		<td><input type="text" name="it_mine"/></td>
+	</tr>
+	<tr>
+		<td>컴 : </td>
+		<td><input type="text" name="it_com"/></td>
+	</tr>
+	<tr>
+		<td>결과 : </td>
+		<td><input type="text" name="it_result"/></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="게임하기" id="btn"/>
+		</td>
+	</tr>
+
+</table>
+</body>
+</html>

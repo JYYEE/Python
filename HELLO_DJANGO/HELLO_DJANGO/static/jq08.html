@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it_first, #it_last{
+	width : 20px;
+}
+</style>
+<script src="jquery-3.6.4.js"></script>
+<script type="text/javascript">
+function myclick(){
+	let first = $('#it_first').val()
+	let last = $('#it_last').val()
+	str ="";
+	for(i = first; i<=last; i++){
+		for(j=1; j<=i; j++){
+			str +="*";
+		}
+		str +="\n"
+	}
+	$('#ta').val(str)
+}
+
+$(document).ready(function(){
+	$('#btn').bind('click', myclick);
+})
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>첫 별 수</td>
+		<td><input type="text" id="it_first"></td>
+	</tr>
+	<tr>
+		<td>끝 별 수</td>
+		<td><input type="text" id="it_last"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" id="btn">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<textarea rows="20" cols="20" id="ta"></textarea>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function my_click(){
+	var tds = document.querySelectorAll(".my_td");
+	arr = [];
+	for(i = 0; i<45 ; i++){
+		arr[i]=i+1;
+		}
+	lotto = [];
+	for(i=0;i<6; i++){
+		var rnd = parseInt(arr.length*Math.random())
+		lotto.push(arr.splice(rnd,1)[0]);
+		tds[i].innerHTML = lotto[i];
+	}
+}
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+		<td class="my_td">___</td>
+	</tr>
+	<tr>
+		<td colspan="6">
+			<input type="button" value="로또생성하기" onclick="my_click()">
+		</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it_dan{
+	width : 30px;
+}
+#my_div{
+	border : 1px solid black;
+	width : 100px;
+	height : 200px;
+}
+
+</style>
+<script src="jquery-3.6.4.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btn').bind('click', myclick);
+	$('#it_dan').bind('keypress', function(event){
+		if(event.key == "Enter"){
+			myclick();
+		}
+	})
+})
+
+function myclick(){
+	dan = $('#it_dan').val();
+	let str ="";
+	for(i=1 ; i<=9 ; i++){
+		str += dan + " * " + i +" = " + (i*dan) + "<br>" ; // innerText로는 <br>도 문자로 인식 -> innerHTML
+	}
+	$('#my_div').html(str);
+}
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>입력 단수 : </td>
+		<td><input type="text" id="it_dan"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" id="btn">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="my_div"></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

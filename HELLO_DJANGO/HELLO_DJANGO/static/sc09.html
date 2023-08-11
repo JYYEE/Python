@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#my_div{
+	border : 1px solid black;
+	width : 200px;
+	height : 200px;
+}
+
+</style>
+<script type="text/javascript">
+var com = "";
+function randomCom(){
+	var arr3 =[];
+	var arr9 = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+	for(i=1; i<=3; i++){
+		var rnd = parseInt(arr9.length*Math.random())
+		arr3.push(arr9.splice(rnd,1)[0]);
+	}
+	com = arr3[0]+arr3[1]+arr3[2];
+	console.log(com)
+}
+randomCom();
+function getStrike(com, mine){
+	var cnt = 0;
+	var c1 = com.substring(0,1);
+	var c2 = com.substring(1,2);
+	var c3 = com.substring(2,3);
+	
+	var m1 = mine.substring(0,1);
+	var m2 = mine.substring(1,2);
+	var m3 = mine.substring(2,3);
+	
+	if(c1 == m1) cnt++
+	if(c2 == m2) cnt++
+	if(c3 == m3) cnt++
+	return cnt;
+}
+function getBall(com, mine){
+	var cnt = 0;
+	var c1 = com.substring(0,1);
+	var c2 = com.substring(1,2);
+	var c3 = com.substring(2,3);
+	
+	var m1 = mine.substring(0,1);
+	var m2 = mine.substring(1,2);
+	var m3 = mine.substring(2,3);
+	
+	if(c1 == m2 || c1 == m3) cnt++
+	if(c2 == m1 || c2 == m3) cnt++
+	if(c3 == m1 || c3 == m1) cnt++
+	return cnt;
+}
+
+function my_click(){
+	var obj_it = document.querySelector('#it');
+	var obj_div = document.querySelector('#my_div');
+	
+	var mine = obj_it.value;
+	
+	var s = getStrike(com, mine);
+	var b = getBall(com, mine);
+	
+	var str_new = mine + "&nbsp;&nbsp;&nbsp;&nbsp;" + s+"S " + b + "B<br>"
+	var str_old = obj_div.innerHTML;
+	obj_div.innerHTML = str_old + str_new;
+	obj_it.value = "";
+	
+	if(s==3){
+		setTimeout(function(){
+		    alert(mine +"를 맞췄습니다.");
+		}, 100); 
+		// alert창이 먼저 실행되는 것은 자바 내부 버그
+		// alert 실행하는 시간을 지연시켜서 늦게 뜨도록 만들어서 맞춘 다음에 alert창이 뜰 수 있게 만들어줌.
+		// alert(mine +"를 맞췄습니다.");
+	}
+}
+
+
+
+/* 	arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+	for(i=1; i<100; i++){
+		let rnd = parseInt(Math.random()*9);
+		a = arr[0];
+		b = arr[rnd];
+		arr[0] = b;
+		arr[rnd] = a;
+	}
+	com = "" + arr[0] + arr[1]+arr[2];
+	arrcom = arr.slice(0,3);
+	
+function my_click(){
+	console.log(com)
+	let mine = document.getElementById('it').value;
+	arrmine =mine.split("");
+	let strike =0;
+	let ball = 0;
+	str = document.getElementById('my_div').innerText
+	if(arrcom[0] == arrmine[0]) strike++;
+	if(arrcom[1] == arrmine[1]) strike++;
+	if(arrcom[2] == arrmine[2]) strike++;
+	if(arrcom[0] == arrmine[1] || arrcom[0] == arrmine[2]) ball++;
+	if(arrcom[1] == arrmine[0] || arrcom[1] == arrmine[2]) ball++;
+	if(arrcom[2] == arrmine[0] || arrcom[2] == arrmine[1]) ball++;
+	str += mine + "\t" + strike +"S" + ball + "B\n"
+	document.getElementById('my_div').innerText = str
+	if(strike == 3){
+		alert(com + " 맞췄습니다!");
+	}
+}   */
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>야구게임</td>
+		<td><input type="text" id="it"></td>
+	</tr>
+		<td colspan="2">
+			<input type="button" value="맞추기" onclick="my_click()">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="my_div"></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

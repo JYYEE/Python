@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function my_click(){
+	//var num = document.getElementById('my_it').value;
+	// console에서 숫자는 파랑 문자는 검정색
+	var num = document.querySelector('#my_it').value;
+	document.getElementById('my_it').value = num *2;
+}
+</script>
+</head>
+<body>
+<input type="text" id="my_it" value="10">  
+<input type="button" value="Double" onclick="my_click()">
+</body>
+</html>
